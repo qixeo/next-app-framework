@@ -1,0 +1,4 @@
+/* In the tutorial, this isn't wrapped in body{} but it doesn't seem to work without it in practice */
+.radix-themes {
+  --default-font-family: var(--font-inter);
+}
