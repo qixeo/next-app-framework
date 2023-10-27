@@ -2,7 +2,22 @@ This is a Next.js app that includes a basic framework with Google Auth, user man
 
 ## Getting Started
 
-First, run the development server:
+Set up a MySql database, or whatever DB you want. If using Postgres or other, update the adapter and the schema accordingly in prisma/schema.prisma. Refer to the [`Prisma docs`](https://www.prisma.io/docs/concepts/database-connectors/postgresql).
+
+To initialize Prisma, run:
+
+```bash
+npx prisma init
+
+```
+
+For migrations, run:
+
+```bash
+npx prisma migrate dev
+```
+
+Run the development server:
 
 ```bash
 npm run dev
