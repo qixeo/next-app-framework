@@ -2,7 +2,7 @@ This is a Next.js app that includes a basic framework with Google Auth, user man
 
 ## Getting Started
 
-Set up a MySql database, or whatever DB you want. If using Postgres or other, update the adapter and the schema accordingly in prisma/schema.prisma. Refer to the [`Prisma docs`](https://www.prisma.io/docs/concepts/database-connectors/postgresql).
+Set up a MySQL database, or whatever DB you want. If using Postgres or anything other than MySQL, update the adapter and the schema accordingly in prisma/schema.prisma. Refer to the [`Prisma docs`](https://www.prisma.io/docs/concepts/database-connectors/postgresql).
 
 To initialize Prisma, run:
 
@@ -41,6 +41,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+This install uses the [Radix UI Theme](https://www.radix-ui.com/) which includes all kinds of slick styling.
 
 ## Deploy on Vercel
 

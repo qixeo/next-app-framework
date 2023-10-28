@@ -3,8 +3,8 @@
 import { Skeleton } from '@/app/components';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AccountLink from './components/AccountLink';
 import React from 'react';
-import { AiFillBug } from 'react-icons/ai';
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
 import {
@@ -15,6 +15,8 @@ import {
   Flex,
   Text,
 } from '@radix-ui/themes';
+import Image from 'next/image';
+import logo from '@/public/images/logo.png';
 
 const NavBar = () => {
   return (
@@ -23,7 +25,7 @@ const NavBar = () => {
         <Flex justify="between">
           <Flex align="center" gap="3">
             <Link href="/">
-              <AiFillBug />
+              <Image src={logo} height="30" alt="My Image" className="mr-5" />
             </Link>
             <NavLinks />
           </Flex>
@@ -39,6 +41,7 @@ const NavLinks = () => {
 
   const links = [
     { label: 'Dashboard', href: '/' },
+    { label: 'Users', href: '/users' },
   ];
 
   return (
@@ -62,6 +65,8 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
+
+  console.log(session);
 
   if (status === 'loading') return <Skeleton width="3rem" />;
 
@@ -104,6 +109,10 @@ const AuthStatus = () => {
           <DropdownMenu.Label>
             <Text size="2">{session!.user!.email}</Text>
           </DropdownMenu.Label>
+          <DropdownMenu.Item>
+            <Link href="/api/auth/signout">{session!.user!.name}</Link>
+            {/* <AccountLink emailAddress={session!.user!.email} /> */}
+          </DropdownMenu.Item>
           <DropdownMenu.Item>
             <Link href="/api/auth/signout">Log out</Link>
           </DropdownMenu.Item>
