@@ -1,6 +1,8 @@
 import prisma from '@/prisma/client';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import UserForm from '../../_components/UserForm';
+import { Heading } from '@radix-ui/themes';
 
 interface Props {
   params: {
@@ -15,7 +17,12 @@ const EditUserPage = async ({ params }: Props) => {
 
   if (!user) notFound();
 
-  return <div>User: {user.name}</div>;
+  return (
+    <div>
+      <Heading mb="5">Edit Profile: {user.name}</Heading>
+      <UserForm user={user}></UserForm>
+    </div>
+  );
 };
 
 export default EditUserPage;

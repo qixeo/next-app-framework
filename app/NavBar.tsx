@@ -82,6 +82,8 @@ const AuthStatus = () => {
       </Link>
     );
 
+  console.log(session);
+
   const fullName = session!.user.name;
 
   // TODO: Retrieve user ID

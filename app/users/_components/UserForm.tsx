@@ -1,6 +1,6 @@
 'use client';
 
-import { TextField, Button, Callout, Text } from '@radix-ui/themes';
+import { TextField, Button, Callout } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import 'easymde/dist/easymde.min.css';
@@ -15,11 +15,10 @@ import { User } from '@prisma/client';
 
 type UserFormData = z.infer<typeof userSchema>;
 
-const NewUserPage = ({ user }: { user?: User }) => {
+const UserForm = ({ user }: { user?: User }) => {
   const router = useRouter();
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormData>({
@@ -50,7 +49,7 @@ const NewUserPage = ({ user }: { user?: User }) => {
       <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input
-            // defaultValue={user?.name}
+            defaultValue={user?.name!}
             placeholder="Name"
             {...register('name')}
           />
@@ -58,7 +57,7 @@ const NewUserPage = ({ user }: { user?: User }) => {
         <ErrorMessage>{errors.name?.message}</ErrorMessage>
         <TextField.Root>
           <TextField.Input
-            // defaultValue={user?.email}
+            defaultValue={user?.email!}
             placeholder="Email"
             {...register('email')}
           />
@@ -72,4 +71,4 @@ const NewUserPage = ({ user }: { user?: User }) => {
   );
 };
 
-export default NewUserPage;
+export default UserForm;

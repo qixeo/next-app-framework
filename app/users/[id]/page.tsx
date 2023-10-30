@@ -21,17 +21,20 @@ interface Props {
 }
 
 const UserDetailPage = async ({ params: { id } }: Props) => {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   const user = await prisma.user.findUnique({
     where: { id: id },
   });
 
   if (!user) notFound();
+
   return (
     <>
       <Flex justify="between" my="5">
         <Heading size="5">Personal Information</Heading>
-        <Button>Edit Profile</Button>
+        <Link href={`/users/edit/${user.id}`}>
+          <Button>Edit Profile</Button>
+        </Link>
       </Flex>
       <Grid columns="2" gap="1">
         <Flex align="start">
@@ -50,14 +53,16 @@ const UserDetailPage = async ({ params: { id } }: Props) => {
       <Separator my="5" size="4" />
       <Flex justify="between" my="5">
         <Heading size="5">Password</Heading>
-        <Button>Change Password</Button>
+        {user.hashedPassword && <Button>Change Password</Button>}
       </Flex>
       <Grid columns="2" gap="1">
         <Flex align="start">
           <Text weight="bold">Password:</Text>
         </Flex>
         <Flex align="start">
-          <Text>••••••••</Text>
+          {(user.hashedPassword && <Text>••••••••</Text>) || (
+            <Button>Add a Password</Button>
+          )}
         </Flex>
       </Grid>
     </>
