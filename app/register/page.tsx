@@ -30,8 +30,8 @@ const RegisterPage = () => {
             priority
           />
         </Flex>
-        <Text as="p" color="violet" size="3" mb="3">
-          Sign up for our cool app.
+        <Text as="p" color="violet" weight="light" size="4" mb="3">
+          Sign up for our app.
         </Text>
         <RegisterForm />
       </Card>

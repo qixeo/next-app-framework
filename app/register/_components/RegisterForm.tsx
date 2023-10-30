@@ -60,7 +60,7 @@ const UserForm = () => {
         <TextField.Root>
           <TextField.Input
             size="3"
-            placeholder="password"
+            placeholder="Password"
             type="password"
             {...register('password')}
           />
