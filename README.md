@@ -33,14 +33,30 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Email
+
+[React Email](https://react.email) with @react-email-components is integrated and includes a great way to preview emails in dev.
+
+To see live email previews, run:
+
+```bash
+npm run preview-email
+```
+
+It may take 10 - 20 seconds the first time you run it.
+
+Preview your emails at [http://localhost:3030](http://localhost:3030).
+
+Note: The email preview server is set to [http://localhost:3030](http://localhost:3030) instead of the default port of `:3000` as indicated in the React Email docs.
+
+This is set up for [Resend](https://resend.com) as the email provider but it's simple enough to use others such as Mailgun or Sendgrid.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 This install uses the [Radix UI Theme](https://www.radix-ui.com/) which includes all kinds of slick styling.
 

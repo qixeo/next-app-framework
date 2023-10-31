@@ -3,7 +3,7 @@
 import { Skeleton } from '@/app/components';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
 import {
@@ -82,8 +82,6 @@ const AuthStatus = () => {
         Login
       </Link>
     );
-
-  console.log(session);
 
   const fullName = session!.user.name;
 
