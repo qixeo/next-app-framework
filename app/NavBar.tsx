@@ -20,6 +20,27 @@ import logo from '@/public/images/logo.png';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 
 const NavBar = () => {
+  // Signout keyboard shortcut
+  const handleKeyPress = useCallback(
+    (event: { key: any; metaKey: any; ctrlKey: any }) => {
+      console.log(`Key pressed: ${event.key}`);
+      if (
+        (event.metaKey && event.key === 'Backspace') ||
+        (event.ctrlKey && event.key === 'Backspace')
+      )
+        window.location.href = '/api/auth/signout';
+    },
+    []
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   return (
     <nav className="border-b mb-5 px-5 py-3">
       <Container>
