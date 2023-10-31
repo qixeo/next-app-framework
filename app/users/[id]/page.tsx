@@ -53,7 +53,11 @@ const UserDetailPage = async ({ params: { id } }: Props) => {
       <Separator my="5" size="4" />
       <Flex justify="between" my="5">
         <Heading size="5">Password</Heading>
-        {user.hashedPassword && <Button>Change Password</Button>}
+        {user.hashedPassword && (
+          <Link href={`/users/change-password/${user.id}`}>
+            <Button>Change Password</Button>
+          </Link>
+        )}
       </Flex>
       <Grid columns="2" gap="1">
         <Flex align="start">
