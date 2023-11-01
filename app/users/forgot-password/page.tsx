@@ -89,7 +89,8 @@ const ForgotPasswordPage = () => {
                   Success!
                 </Heading>
                 <p className="text-center mb-3">
-                  We've sent you a link to update your password.
+                  We've sent you a link to update your password. The link will
+                  expire in 1 hour.
                 </p>
                 <Separator mt="5" mb="7" size="3" color="gray" />
                 <p className="text-center mb-3">

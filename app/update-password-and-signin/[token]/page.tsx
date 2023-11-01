@@ -21,7 +21,6 @@ const UpdatePasswordAndSignin = async ({ params }: Props) => {
   const userToken = await prisma.verificationToken.findUnique({
     where: { token: token },
   });
-  console.log('token: ' + token);
 
   if (!userToken) return notFound();
   // TODO: Set custom error message for the client

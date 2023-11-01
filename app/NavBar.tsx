@@ -105,9 +105,6 @@ const AuthStatus = () => {
 
   const fullName = session!.user.name;
 
-  // TODO: Retrieve user ID
-  // const userId = '';
-
   const array = fullName!.split(' ');
   // let initials = '?';
 

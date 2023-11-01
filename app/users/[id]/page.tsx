@@ -1,15 +1,11 @@
 import prisma from '@/prisma/client';
 import {
-  Card,
-  Box,
   Button,
   Flex,
   Grid,
   Text,
-  Avatar,
   Heading,
   Link,
-  Table,
   Separator,
 } from '@radix-ui/themes';
 import { getServerSession } from 'next-auth';
