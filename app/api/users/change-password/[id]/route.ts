@@ -28,5 +28,18 @@ export async function PATCH(
     },
   });
 
+  // TODO: Update user session with new creds
+
+  if (user.email) {
+    const hasVerificationToken = await prisma.verificationToken.count({
+      where: { identifier: user.email },
+    });
+
+    if (hasVerificationToken)
+      await prisma.verificationToken.deleteMany({
+        where: { identifier: user.email },
+      });
+  }
+
   return NextResponse.json(updatedUser);
 }

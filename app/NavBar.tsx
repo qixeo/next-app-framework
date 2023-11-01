@@ -23,7 +23,6 @@ const NavBar = () => {
   // Signout keyboard shortcut
   const handleKeyPress = useCallback(
     (event: { key: any; metaKey: any; ctrlKey: any }) => {
-      console.log(`Key pressed: ${event.key}`);
       if (
         (event.metaKey && event.key === 'Backspace') ||
         (event.ctrlKey && event.key === 'Backspace')
