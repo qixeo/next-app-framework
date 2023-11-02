@@ -34,7 +34,7 @@ const SignInForm = () => {
     const res = await signIn(data.providerId, {
       email: data.email,
       password: data.password,
-      redirect: true,
+      redirect: false,
     });
     if (res?.error !== 'Invalid credentials') {
       router.push('/');
