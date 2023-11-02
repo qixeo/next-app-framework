@@ -19,20 +19,24 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials.password)
+          throw new Error('Invalid credentials');
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
 
-        if (!user) return null;
+        if (!user) throw new Error('Invalid credentials');
 
         const passwordsMatch = await bcrypt.compare(
           credentials.password,
           user.hashedPassword!
         );
 
-        return passwordsMatch ? user : null;
+        if (passwordsMatch) return user;
+        else {
+          throw new Error('Invalid credentials');
+        }
       },
     }),
     GoogleProvider({
@@ -41,6 +45,11 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   if (user?.error === 'my custom error') {
+    //     throw new Error('custom error to the client');
+    //   }
+    // },
     session: async ({ session, token }) => {
       if (session?.user) {
         session!.user!.id = token.sub; // token.uid or token.sub both work
@@ -53,6 +62,9 @@ const authOptions: NextAuthOptions = {
       }
       return token;
     },
+  },
+  pages: {
+    signIn: '/signin',
   },
   session: {
     strategy: 'jwt',
