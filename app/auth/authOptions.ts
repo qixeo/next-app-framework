@@ -45,11 +45,19 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   if (user?.error === 'my custom error') {
-    //     throw new Error('custom error to the client');
+    // async signIn({ account, profile }) {
+    //   if (account?.provider === 'google') {
+    //     return profile.email_verified && profile.email.endsWith('@example.com');
     //   }
+    //   return true; // Do different verification for other providers that don't have `email_verified`
     // },
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
     session: async ({ session, token }) => {
       if (session?.user) {
         session!.user!.id = token.sub; // token.uid or token.sub both work
