@@ -17,13 +17,11 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 
-// type Props = {
-//   params: {
-//     error?: string;
-//   };
-// };
+interface Props {
+  providers: Object;
+}
 
-const SignInForm = () => {
+const SignInForm = ({ providers }: Props) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
@@ -48,6 +46,9 @@ const SignInForm = () => {
   return (
     <>
       <Flex direction="column" justify="center" align="center" m="3">
+        <Text weight="light" color="gray" size="8" mb="2">
+          Sign In
+        </Text>
         <Box style={{ width: '320px' }}>
           {error && (
             <Callout.Root color="red" className="mb-5">
@@ -100,6 +101,26 @@ const SignInForm = () => {
           >
             <FcGoogle /> Sign In with Google
           </Button>
+          {/* Uncomment the following code to dynamically pull in Sign In buttons from providers.
+          I chose to hard-code them for styling, such as the Google Logo icon. */}
+          {/* {Object.values(providers).map((provider) => {
+            if (provider.name === 'Credentials' || 'Google') {
+              return;
+            }
+            return (
+              <Box key={provider.name}>
+                <Button
+                  variant="outline"
+                  size="4"
+                  style={{ marginTop: 10, width: '100%' }}
+                  disabled={isSubmitting}
+                  onClick={() => signIn(provider.id)}
+                >
+                  Sign In with {provider.name}
+                </Button>
+              </Box>
+            );
+          })} */}
         </Box>
       </Flex>
     </>

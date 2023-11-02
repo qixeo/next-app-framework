@@ -1,21 +1,23 @@
 import { getServerSession } from 'next-auth/next';
+import { getProviders } from 'next-auth/react';
 import authOptions from '@/app/auth/authOptions';
 import SignInForm from './_components/SignInForm';
 import { redirect } from 'next/navigation';
+import { Heading } from '@radix-ui/themes';
 
-type Props = {
-  params: {
-    error?: string;
-  };
-};
-
-const SignInPage = async ({ params }: Props) => {
+const SignInPage = async () => {
   const session = await getServerSession(authOptions);
   if (session) {
     return redirect('/');
   }
 
-  return <SignInForm />;
+  const providers = (await getProviders()) || {};
+
+  return (
+    <>
+      <SignInForm providers={providers} />
+    </>
+  );
 };
 
 export default SignInPage;
