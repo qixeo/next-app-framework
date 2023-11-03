@@ -2,8 +2,15 @@
 
 import { Skeleton } from '@/app/components';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import React, {
+  Fragment,
+  PropsWithChildren,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import classnames from 'classnames';
 import { useSession } from 'next-auth/react';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
@@ -14,6 +21,7 @@ import {
   Container,
   DropdownMenu,
   Flex,
+  Separator,
   Text,
 } from '@radix-ui/themes';
 import {
@@ -78,6 +86,16 @@ function classNames(...classes: string[]) {
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // TODO: Handle mobile menu closing without the onClick. Perhaps something like this:
+  const router = useRouter();
+
+  const pathname = usePathname();
+
+  // Closes mobile menu on path change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   // Signout keyboard shortcut
   const handleKeyPress = useCallback(
     (event: { key: any; metaKey: any; ctrlKey: any }) => {
@@ -105,15 +123,9 @@ const NavBar = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link href="/">
-            <span className="sr-only">Your Company</span>
-            <Image
-              src={logo}
-              height="30"
-              alt="Logo"
-              className="mr-5"
-              priority
-            />
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Logo</span>
+            <Image src={logo} alt="Logo" className="h-8 w-auto" priority />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -204,14 +216,10 @@ const NavBar = () => {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
+            <Link href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Logo</span>
+              <Image src={logo} alt="Logo" className="h-8 w-auto" priority />
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -252,32 +260,7 @@ const NavBar = () => {
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </a>
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in Mobile
-                </a>
+                <MobileNavLinks func={setMobileMenuOpen} />
               </div>
             </div>
           </div>
@@ -295,7 +278,7 @@ const NavLinks = () => {
     { label: 'Users', href: '/users' },
     { label: 'Contact', href: '/contact' },
   ];
-  // text-sm font-semibold leading-6 text-gray-900
+
   return (
     <>
       {links.map((link) => (
@@ -311,6 +294,35 @@ const NavLinks = () => {
           </Link>
         </span>
       ))}
+    </>
+  );
+};
+
+const MobileNavLinks = (props: any) => {
+  const currentPath = usePathname();
+
+  const links = [
+    { label: 'Dashboard', href: '/' },
+    { label: 'Users', href: '/users' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  return (
+    <>
+      {links.map((link) => (
+        <Link
+          className={classnames({
+            '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50':
+              true,
+            '!text-zinc-900': link.href === currentPath,
+          })}
+          href={link.href}
+          // onClick={() => props.func(false)}
+        >
+          {link.label}
+        </Link>
+      ))}
+      <AuthStatusMobile />
     </>
   );
 };
@@ -384,17 +396,58 @@ const AuthStatus = () => {
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
-          <DropdownMenu.Item>
+          <DropdownMenu.Item asChild>
             <Link href={`/users/${session!.user.id}`}>
               {session!.user!.name}
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+          <DropdownMenu.Item shortcut="⌘ ⌫" color="red" asChild>
             <Link href="/api/auth/signout">Log out</Link>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
+    </>
+  );
+};
+
+const AuthStatusMobile = (props: any) => {
+  const { status, data: session } = useSession();
+
+  const currentPath = usePathname();
+
+  if (status === 'loading') return <Skeleton width="5rem" />;
+
+  if (status === 'unauthenticated')
+    return (
+      <Link
+        className={classnames({
+          '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50':
+            true,
+          '!text-zinc-900': '/signin' === currentPath,
+        })}
+        href="/signin"
+        onClick={() => props.func(false)}
+      >
+        Log in
+      </Link>
+    );
+
+  return (
+    <>
+      <Link
+        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+        href={`/users/${session!.user.id}`}
+        onClick={() => props.func(false)}
+      >
+        {session!.user!.name}
+      </Link>
+      <Link
+        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+        href="/api/auth/signout"
+      >
+        Log out
+      </Link>
     </>
   );
 };
