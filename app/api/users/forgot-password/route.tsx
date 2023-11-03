@@ -15,9 +15,9 @@ export async function POST(request: NextRequest) {
   if (!user)
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
+  // Generate a verification token and save to DB
   const token = bcrypt.genSaltSync(10);
-
-  const timeInMilliseconds = Date.now() + 60 * 60 * 1000; // Now pluse 1 hour
+  const timeInMilliseconds = Date.now() + 60 * 60 * 1000; // Now plus 1 hour
   const expires = new Date(timeInMilliseconds);
 
   await prisma.verificationToken.create({

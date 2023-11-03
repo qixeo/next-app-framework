@@ -140,7 +140,7 @@ const NavBar = () => {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 nav-link">
+            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold nav-link">
               Products
               <ChevronDownIcon
                 className="h-5 w-5 flex-none text-gray-400"
@@ -282,17 +282,16 @@ const NavLinks = () => {
   return (
     <>
       {links.map((link) => (
-        <span>
-          <Link
-            className={classnames({
-              'gap-x-1 text-sm font-semibold nav-link': true,
-              '!text-zinc-900': link.href === currentPath,
-            })}
-            href={link.href}
-          >
-            {link.label}
-          </Link>
-        </span>
+        <Link
+          className={classnames({
+            'gap-x-1 text-sm font-semibold nav-link': true,
+            '!text-zinc-900': link.href === currentPath,
+          })}
+          href={link.href}
+          key={link.href}
+        >
+          {link.label}
+        </Link>
       ))}
     </>
   );
@@ -317,6 +316,7 @@ const MobileNavLinks = (props: any) => {
             '!text-zinc-900': link.href === currentPath,
           })}
           href={link.href}
+          key={link.href}
           // onClick={() => props.func(false)}
         >
           {link.label}
