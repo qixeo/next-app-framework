@@ -78,7 +78,7 @@ const ConfirmEmail = async ({ params }: Props) => {
 const CallOut = (errorMessage: any) => {
   return (
     <div className="flex justify-center mt-5">
-      <div className="p-4 border border-red-200 bg-red-50 rounded-md">
+      <div className="p-5 border border-rose-200 bg-rose-50 text-rose-600 rounded-md">
         Error: {JSON.stringify(errorMessage.errorMessage)} Please{' '}
         <Link href="/contact">contact us</Link> and submit an inquiry.
       </div>
