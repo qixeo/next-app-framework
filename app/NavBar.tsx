@@ -317,7 +317,6 @@ const MobileNavLinks = (props: any) => {
           })}
           href={link.href}
           key={link.href}
-          // onClick={() => props.func(false)}
         >
           {link.label}
         </Link>
@@ -329,14 +328,32 @@ const MobileNavLinks = (props: any) => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
+  const currentPath = usePathname();
 
   if (status === 'loading') return <Skeleton width="5rem" />;
 
   if (status === 'unauthenticated')
     return (
-      <Link className="nav-link" href="/api/auth/signin">
-        Login
-      </Link>
+      <>
+        <Flex align="center">
+          <Link
+            className={classnames({
+              'gap-x-1 text-sm font-semibold nav-link mr-5': true,
+              '!text-zinc-900': '/signin' === currentPath,
+            })}
+            href="/signin"
+          >
+            Log In
+          </Link>
+          <Button
+            className={classnames({
+              '!hidden': '/register' === currentPath,
+            })}
+          >
+            <Link href="/register">Sign Up</Link>
+          </Button>
+        </Flex>
+      </>
     );
 
   // const fullName = session!.user.name;
@@ -420,17 +437,28 @@ const AuthStatusMobile = (props: any) => {
 
   if (status === 'unauthenticated')
     return (
-      <Link
-        className={classnames({
-          '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50':
-            true,
-          '!text-zinc-900': '/signin' === currentPath,
-        })}
-        href="/signin"
-        onClick={() => props.func(false)}
-      >
-        Log in
-      </Link>
+      <>
+        <Link
+          className={classnames({
+            '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50':
+              true,
+            '!text-zinc-900': '/signin' === currentPath,
+          })}
+          href="/signin"
+        >
+          Log In
+        </Link>
+        <Link
+          className={classnames({
+            '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50':
+              true,
+            '!text-zinc-900': '/register' === currentPath,
+          })}
+          href="/register"
+        >
+          Sign Up
+        </Link>
+      </>
     );
 
   return (
