@@ -160,7 +160,6 @@ const AuthStatus = () => {
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
-          <DropdownMenu.Item>{session!.user!.email}</DropdownMenu.Item>
           <DropdownMenu.Item>
             <Link href={`/users/${session!.user.id}`}>
               {session!.user!.name}

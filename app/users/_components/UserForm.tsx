@@ -77,9 +77,6 @@ const UserForm = ({ user }: { user?: User }) => {
           {user ? 'Update User' : 'Add New User'} {isSubmitting && <Spinner />}
         </Button>
       </form>
-      {/* <Button onClick={() => update({ name: 'Paul Doe' })}>
-        Update Session
-      </Button> */}
     </div>
   );
 };
