@@ -8,8 +8,6 @@ interface Props {
 }
 
 const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
-  console.log(sortOrder);
-
   return (
     <>
       <Flex justify="between" my="5">

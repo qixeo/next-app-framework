@@ -40,7 +40,7 @@ const ForgotPasswordPage = () => {
   return (
     <>
       <Flex justify="center">
-        <Container style={{ maxWidth: 500 }}>
+        <Container>
           {!success && (
             <>
               <Flex direction="column" align="center">
@@ -64,20 +64,27 @@ const ForgotPasswordPage = () => {
                   style={{ textAlign: 'right' }}
                   onSubmit={onSubmit}
                 >
-                  <TextField.Root>
-                    <TextField.Input
-                      size="3"
-                      placeholder="Email"
-                      {...register('email')}
-                    />
-                  </TextField.Root>
-                  <Button
-                    size="3"
-                    style={{ marginTop: 28 }}
-                    disabled={isSubmitting}
+                  <Flex
+                    className="flex-col sm:flex-row"
+                    align="center"
+                    justify="center"
+                    gap="2"
                   >
-                    Reset Password {isSubmitting && <Spinner />}
-                  </Button>
+                    <TextField.Root className="w-full sm:max-w-[280px]">
+                      <TextField.Input
+                        size="3"
+                        placeholder="Email"
+                        {...register('email')}
+                      />
+                    </TextField.Root>
+                    <Button
+                      size="3"
+                      className="w-full sm:w-32"
+                      disabled={isSubmitting}
+                    >
+                      Submit {isSubmitting && <Spinner />}
+                    </Button>
+                  </Flex>
                 </form>
               </div>
             </>

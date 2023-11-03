@@ -64,9 +64,14 @@ const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token, trigger, session }) => {
       if (user) {
         token.sub = user.id; // token.uid or token.sub both work
+      }
+      if (trigger === 'update') {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.name = session.name;
+        token.email = session.email;
       }
       return token;
     },

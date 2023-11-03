@@ -4,6 +4,7 @@ import { TextField, Button, Callout } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userSchema } from '@/app/validationSchemas';
@@ -25,13 +26,23 @@ const UserForm = ({ user }: { user?: User }) => {
   });
   const [error, setError] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
-  const onSubmit = handleSubmit(async (data) => {
+  const { data: session, status, update } = useSession();
+  const updateSession = (formData: any) => {
+    update(formData);
+  };
+  const onSubmit = handleSubmit(async (formData) => {
     try {
       setSubmitting(true);
-      if (user) axios.patch('/api/users/' + user.id, data);
-      else await axios.post('/api/users', data);
-      router.push('/users');
-      router.refresh();
+      if (user) {
+        await axios.patch('/api/users/' + user.id, formData);
+        updateSession({ name: formData.name, email: formData.email });
+        router.push('/users/' + user.id);
+        router.refresh();
+      } else {
+        await axios.post('/api/users', formData);
+        router.push('/users');
+        router.refresh();
+      }
     } catch (error) {
       setSubmitting(false);
       setError('An unexpected error occurred.');
@@ -66,6 +77,9 @@ const UserForm = ({ user }: { user?: User }) => {
           {user ? 'Update User' : 'Add New User'} {isSubmitting && <Spinner />}
         </Button>
       </form>
+      {/* <Button onClick={() => update({ name: 'Paul Doe' })}>
+        Update Session
+      </Button> */}
     </div>
   );
 };
