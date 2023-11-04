@@ -1,4 +1,4 @@
-## Work-in-Progress
+## NextJS Starter App - Work-in-Progress
 
 Last updated Nov 3, 2023
 
