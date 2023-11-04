@@ -1,4 +1,8 @@
-This is a Next.js app that includes a basic framework with Google Auth, user management, email integration, and the Prisma ORM. It should provide a good starting point for a basic web app and is an enhanced version of the [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Work-in-Progress
+
+Last updated Nov 3, 2023
+
+This is a Next.js starter app that includes a bunch of components to make life easier starting a brand new web app. Includes Next Auth with email credentials and Google Auth ready to go, basic user management, email integration, user registration with email confirmation and password retrieval, Prisma ORM, RadixUI components, and maybe some other things I'm missing. It should provide a good starting point for a basic web app and is an enhanced version of the [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
