@@ -53,15 +53,12 @@ This is set up for [Resend](https://resend.com) as the email provider but it's s
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Learn more about Next.js:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Docs](https://nextjs.org/docs)
 
 This install uses the [Radix UI Theme](https://www.radix-ui.com/) which includes all kinds of slick styling.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+I tried out [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the makers of Next.js and it seems pretty slick. I like to use [Render](https://render.com) but it's up to you!
