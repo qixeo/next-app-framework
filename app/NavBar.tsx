@@ -86,9 +86,6 @@ function classNames(...classes: string[]) {
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // TODO: Handle mobile menu closing without the onClick. Perhaps something like this:
-  const router = useRouter();
-
   const pathname = usePathname();
 
   // Closes mobile menu on path change
@@ -271,13 +268,17 @@ const NavBar = () => {
 };
 
 const NavLinks = () => {
+  const { status, data: session } = useSession();
   const currentPath = usePathname();
 
-  const links = [
-    { label: 'Dashboard', href: '/' },
-    { label: 'Users', href: '/users' },
+  let links = [
+    { label: 'Dashboard', href: '/', requiresAuth: true },
+    { label: 'Users', href: '/users', requiresAuth: true },
     { label: 'Contact', href: '/contact' },
   ];
+  if (status === 'unauthenticated') {
+    links = links.filter((link) => !link.requiresAuth);
+  }
 
   return (
     <>
@@ -298,13 +299,17 @@ const NavLinks = () => {
 };
 
 const MobileNavLinks = (props: any) => {
+  const { status, data: session } = useSession();
   const currentPath = usePathname();
 
-  const links = [
-    { label: 'Dashboard', href: '/' },
-    { label: 'Users', href: '/users' },
+  let links = [
+    { label: 'Dashboard', href: '/', requiresAuth: true },
+    { label: 'Users', href: '/users', requiresAuth: true },
     { label: 'Contact', href: '/contact' },
   ];
+  if (status === 'unauthenticated') {
+    links = links.filter((link) => !link.requiresAuth);
+  }
 
   return (
     <>
