@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   });
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const defaultEmail = 'hello@qixeo.com';
+  const defaultEmail = 'example@example.com';
 
   // Send a recovery email with the token
   await resend.emails.send({
