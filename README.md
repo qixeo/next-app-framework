@@ -18,7 +18,7 @@ NEXTAUTH_URL=http://localhost:3000
 # Generate a NEXTAUTH_SECRET using: openssl rand -base64 32
 NEXTAUTH_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-# If you want to use Google as an auth provider, generate your credentials here: https://console.cloud.google.com/apis/credentials
+# To use Google OAuth 2.0 go to [https://console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials).
 GOOGLE_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 GOOGLE_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
