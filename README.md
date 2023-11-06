@@ -6,12 +6,17 @@ This is a Next.js starter app that includes a bunch of components to make life e
 
 ## Getting Started
 
+Clone this repo then run:
+```bash
+npm install
+```
+
 Add a `.env` file to the root directory with the following environment variables:
 
 ```bash
 BASE_URL=http://localhost:3000
 
-# Change the following according to your DB URL:
+# Change the following according to your local DB URL. Example:
 DATABASE_URL="mysql://root:mypassword@localhost:3306/next-js-starter-app"
 
 NEXTAUTH_URL=http://localhost:3000
@@ -27,14 +32,7 @@ RESEND_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Set up a MySQL database, or whatever DB you want. If using Postgres or anything other than MySQL, update the adapter and the schema accordingly in prisma/schema.prisma. Refer to the [`Prisma docs`](https://www.prisma.io/docs/concepts/database-connectors/postgresql).
 
-To initialize Prisma, run:
-
-```env
-npx prisma init
-
-```
-
-For migrations, run:
+Run the following, and everytime you do a migration:
 
 ```bash
 npx prisma migrate dev
