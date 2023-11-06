@@ -46,7 +46,6 @@ const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user, session, trigger }) => {
-      console.log('jwt callback', { token, user, session });
       // Pass user ID into the token, which we'll pass to the session in the session call
       if (user) {
         return {
@@ -62,8 +61,6 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      console.log('session callback', { session, token });
-
       // Pass user ID from the token to the session
       return {
         ...session,
