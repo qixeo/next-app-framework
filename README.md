@@ -6,11 +6,30 @@ This is a Next.js starter app that includes a bunch of components to make life e
 
 ## Getting Started
 
+Add a `.env` file to the root directory with the following environment variables:
+
+```bash
+BASE_URL=http://localhost:3000
+
+# Change the following according to your DB URL:
+DATABASE_URL="mysql://root:mypassword@localhost:3306/next-js-starter-app"
+
+NEXTAUTH_URL=http://localhost:3000
+# Generate a NEXTAUTH_SECRET using: openssl rand -base64 32
+NEXTAUTH_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# If you want to use Google as an auth provider, generate your credentials here: https://console.cloud.google.com/apis/credentials
+GOOGLE_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GOOGLE_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+RESEND_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
 Set up a MySQL database, or whatever DB you want. If using Postgres or anything other than MySQL, update the adapter and the schema accordingly in prisma/schema.prisma. Refer to the [`Prisma docs`](https://www.prisma.io/docs/concepts/database-connectors/postgresql).
 
 To initialize Prisma, run:
 
-```bash
+```env
 npx prisma init
 
 ```
